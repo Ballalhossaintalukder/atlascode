@@ -19,6 +19,10 @@
 - Jira DC: fixed updating issue description (description is sent as WikiMarkup string for DC, ADF for Cloud)
 - Jira DC: user mentions in comments and description now show the correct username instead of @unknown
 
+### Bug Fixes
+
+- Fixed Rovo Dev UI crashes when markdown content fails to parse
+
 ## What's new in 4.0.19
 
 ### Improvements
