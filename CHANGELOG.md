@@ -23,6 +23,10 @@
 
 - Fixed Rovo Dev UI crashes when markdown content fails to parse
 
+### Bug Fixes
+
+- Improved error messages when git user.name or user.email is not configured, providing helpful setup instructions
+
 ## What's new in 4.0.19
 
 ### Improvements
