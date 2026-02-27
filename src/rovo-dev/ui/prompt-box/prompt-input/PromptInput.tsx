@@ -33,7 +33,8 @@ import {
 type NonDisabledState = Exclude<State, DisabledState>;
 
 interface PromptInputBoxProps {
-    disabled?: boolean;
+    disableSendButton?: boolean;
+    readOnly?: boolean;
     hideButtons?: boolean;
     currentState: NonDisabledState;
     isDeepPlanEnabled: boolean;
@@ -116,7 +117,8 @@ function createEditor(setIsEmpty: (isEmpty: boolean) => void) {
 }
 
 export const PromptInputBox: React.FC<PromptInputBoxProps> = ({
-    disabled,
+    disableSendButton,
+    readOnly,
     currentState,
     isDeepPlanEnabled,
     isYoloModeEnabled,
@@ -226,10 +228,10 @@ export const PromptInputBox: React.FC<PromptInputBoxProps> = ({
             (currentState.state === 'Initializing' && currentState.isPromptPending);
 
         editor.updateOptions({
-            readOnly: disabled,
+            readOnly: readOnly,
             placeholder: getTextAreaPlaceholder(isGeneratingResponse, currentState),
         });
-    }, [currentState, editor, disabled]);
+    }, [currentState, editor, readOnly]);
 
     // Focus the editor when it becomes visible in the viewport - helps with opening Rovo Dev panel already focused
     React.useEffect(() => {
@@ -404,7 +406,7 @@ export const PromptInputBox: React.FC<PromptInputBoxProps> = ({
                                 id="bordered-button"
                                 aria-label="stop"
                                 onClick={() => onCancel()}
-                                disabled={disabled || currentState.state === 'CancellingResponse'}
+                                disabled={disableSendButton || currentState.state === 'CancellingResponse'}
                             >
                                 <VideoStopOverlayIcon color={token('color.icon.danger')} label="Stop" />
                             </button>
@@ -414,7 +416,7 @@ export const PromptInputBox: React.FC<PromptInputBoxProps> = ({
                             className="prompt-button-primary"
                             aria-label="send"
                             onClick={() => handleSend()}
-                            disabled={disabled || !isWaitingForPrompt || isEmpty}
+                            disabled={disableSendButton || !isWaitingForPrompt || isEmpty}
                         >
                             <SendIcon label="Send prompt" />
                         </button>
